@@ -1,0 +1,33 @@
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  align-items: center;  
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh; /* height and width used to position where camera is relative to viewport*/
+  width: 100vw;
+  margin: 0;
+  background-color: #f0f0f0;
+}
+
+video {
+  max-width: 100%;
+  border: 1px solid #ccc;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 14px; /* Add margin at the bottom of the video */
+}
+
+button {
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.2s;
+}
+
+button:hover {
+  background-color: blue;
+}
