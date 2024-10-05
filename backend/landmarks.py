@@ -1,3 +1,5 @@
+# https://github.com/google-ai-edge/mediapipe-samples/blob/main/examples/hand_landmarker/python/hand_landmarker.ipynb
+
 from mediapipe import solutions
 from mediapipe.framework.formats import landmark_pb2
 import numpy as np
@@ -17,7 +19,6 @@ def draw_landmarks_on_image(rgb_image, detection_result):
     for idx in range(len(hand_landmarks_list)):
         hand_landmarks = hand_landmarks_list[idx]
         handedness = handedness_list[idx]
-        print(hand_landmarks, handedness)
 
         # Draw the hand landmarks.
         hand_landmarks_proto = landmark_pb2.NormalizedLandmarkList()
@@ -44,9 +45,6 @@ def draw_landmarks_on_image(rgb_image, detection_result):
                                 FONT_SIZE, HANDEDNESS_TEXT_COLOR, FONT_THICKNESS, cv2.LINE_AA)
 
     return annotated_image
-
-
-img = cv2.imread("image.jpg")
 
 
 # STEP 1: Import the necessary modules.
