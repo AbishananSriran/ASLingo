@@ -1,5 +1,7 @@
 # https://github.com/google-ai-edge/mediapipe-samples/blob/main/examples/hand_landmarker/python/hand_landmarker.ipynb
 
+import math
+
 from mediapipe import solutions
 from mediapipe.framework.formats import landmark_pb2
 import numpy as np
@@ -68,6 +70,55 @@ def main():
     # STEP 5: Process the classification result. In this case, visualize it.
     annotated_image = draw_landmarks_on_image(image.numpy_view(), detection_result)
     cv2.imwrite("annotated.jpg", cv2.cvtColor(annotated_image, cv2.COLOR_RGB2BGR))
+
+def normalize(landmarks):
+    def translate(positions, delta):
+        return [pos + delta for pos in positions]
+    def scale(positions, factor):
+        return [pos * factor for pos in positions]
+    landmarks = [np.array(pos) for pos in landmarks]
+    # transform point 0 to origin (bottom of palm)
+    landmarks = translate(landmarks, -landmarks[0])
+    # scale all points using distance from 0 and 9
+    landmarks = scale(landmarks, 100 / math.dist(landmarks[9], landmarks[0]))
+    # rotate so palm is facing forwards, points 0, 1, 9 plane
+    return [list(pos) for pos in landmarks]
+
+def closeness(L1, L2):
+    L1 = [np.array(pos) for pos in L1]
+    L2 = [np.array(pos) for pos in L2]
+    cmp = [
+        [0,4], [0,8], [0,12], [0,16], [0,20],
+        [5,8], [9,12], [13,16], [17,20],
+        [4,8], [8,12], [12,16], [16,20],
+        [4,6], [6,10], [10,14], [14,18],
+    ]
+    # return sum(
+        # math.dist(l1, l2)
+        # for l1, l2 in zip(L1, L2)
+    # )
+    L1s = sum(math.dist(L1[a], L1[b]) for a,b in cmp) / len(cmp)
+    L2s = sum(math.dist(L2[a], L2[b]) for a,b in cmp) / len(cmp)
+    X = [
+        max(da/db, db/da) - 1
+        for a,b in cmp
+        for da,db in [[math.dist(L1[a], L1[b])/L1s, math.dist(L2[a], L2[b])/L2s]]
+    ]
+    NAMES = "wrist thumb1 thumb2 thumb3 thumb4 index1 index2 index3 index4 mid1 mid2 mid3 mid4 ring1 ring2 ring3 ring4 pinky1 pinky2 pinky3 pinky4".split()
+    return {
+        "closeness": sum(x // 0.2 for x in X),
+        "_debug": {
+            "X": X,
+            "apart": [
+                [
+                    x // 0.01 * 0.01,
+                    *[NAMES[v] for v in cmp[i]],
+                ]
+                for i,x in enumerate(X)
+                if x >= 0.2
+            ],
+        },
+    }
 
 if __name__ == "__main__":
     main()
