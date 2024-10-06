@@ -1,85 +1,138 @@
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f0f0f0;
+  font-family: 'Kumbh Sans', sans-serif;
   margin: 0;
   padding: 0;
+  background-color: #f0f0f0;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.container {
-  background-color: rgba(255, 255, 255, 0.8); /* Slightly translucent */
-  padding: 40px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
+.center-fixed {
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%); /* Center the container */
+  transform: translate(-50%, -50%);
 }
 
-h1 {
-  font-size: 2.5rem;
-  color: #333;
+.login-container, .signup-modal .modal-content {
+  background-color: rgba(255, 255, 255, 0.95);
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 30%;
+  text-align: center;
+}
+
+h2 {
   margin-bottom: 20px;
+  color: #333;
 }
 
-p {
-  font-size: 1.2rem;
-  color: #555;
-  margin-bottom: 40px;
-}
-
-.button-container {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
+input[type="text"], input[type="password"], input[type="email"] {
+  width: calc(100% - 24px);
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid #ccc;
 }
 
 .btn {
-  display: inline-block;
-  padding: 15px 30px;
-  font-size: 1rem;
+  background-color: #873ee6;
+  color: white;
+  padding: 10px 20px;
   border: none;
   border-radius: 5px;
-  background-color: #007bff;
-  color: white;
-  text-decoration: none;
+  cursor: pointer;
+  margin: 10px 0;
+  width: 100%;
 }
 
 .btn:hover {
-  background-color: #0056b3;
+  background-color: #873ee6;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.sso-buttons {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: space-between;
+}
+
+.sso-btn {
+  background-color: #873ee6;
+  margin: 5px;
+  width: 45%;
+}
+
+.link-btn {
+  background: none;
+  border: none;
+  color: #007bff;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+}
+
+.link-btn:hover {
+  color: #0056b3;
+}
+
+.signup-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
 }
 
-.App-link {
-  color: #61dafb;
+.modal-content {
+  background-color: white;
+  padding: 40px;
+  border-radius: 10px;
+  width: 300px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.close-btn {
+  background: none;
+  border: none;
+  color: #ff5e5e;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 20px;
+  text-decoration: underline;
+}
+
+.close-btn:hover {
+  color: #ff0000;
+}
+
+.background-wrapper {
+  display: flex; 
+  height: 100vh; 
+  width: 100vw;  
+  overflow: hidden; 
+  position: relative; 
+}
+
+.background-gif {
+  flex: 1; 
+  background-size: cover; 
+  background-position: center; 
+  background-repeat: no-repeat; 
+}
+
+.login-form-2 {
+  position: absolute; 
+  top: 50%; 
+  left: 50%; 
+  transform: translate(-50%, -50%); 
+  background: rgba(255, 255, 255, 0.9);
+  padding: 20px;
+  border-radius: 8px; 
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); 
+  text-align: center;
 }
