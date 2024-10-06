@@ -67,14 +67,11 @@ input[type="text"], input[type="password"], input[type="email"] {
 .link-btn {
   background: none;
   border: none;
-  color: #007bff;
+  color: #873ee6;
   cursor: pointer;
+  text-align: center;
   text-decoration: underline;
   padding: 0;
-}
-
-.link-btn:hover {
-  color: #0056b3;
 }
 
 .signup-modal {

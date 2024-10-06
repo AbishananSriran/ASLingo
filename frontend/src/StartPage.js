@@ -1,13 +1,13 @@
 import React from 'react';
-import './aslingo.css'
+import './StartPage.css'
 
 const StartPage = () => {
   return (
     <div>
     <nav class="navbar">
-        <div class="navbar__container">
+        <div class="navbar__container_h">
             <div style={{display: 'flex'}}>
-              <img src={`${process.env.PUBLIC_URL}/ASLingo-Logo.png`} className='navbar__logo__image' style={{height: '50%', alignSelf: 'center'}} />
+              <img src={`${process.env.PUBLIC_URL}/ASLingo-Logo.png`} className='navbar__logo__image' style={{height: '50%', alignSelf: 'center', marginRight: 10}} />
               <a href="/" id="navbar__logo">ASLingo</a>
             </div>
             <div class="navbar__toggle" id="mobile-menu">
@@ -51,12 +51,12 @@ const StartPage = () => {
         </div>
     </div>
     <div style={{height: 20}} />
-    <div style={{display: 'flex', backgroundColor: 'black', height: '100vh'}}>
-        <div id="mission-statement" className="mission__statement" style={{paddingBottom: 20, width: '50%', paddingLeft: 20, paddingTop: 50}}>
-            <h1 style={{paddingTop: 20}}>Mission Statement</h1>
-            <p style={{textAlign: 'left', paddingLeft: 40}}>At ASLingo, we are dedicated to breaking down communication barriers through the innovative use of artificial intelligence. Our mission is to empower individuals by providing accessible, engaging, and effective tools for learning American Sign Language. We believe that everyone deserves the opportunity to connect and communicate, and we strive to foster inclusivity and understanding in our diverse world.</p>
+    <div class="flex justify-center items-center h-full bg-black">
+        <div id="mission-statement" className="mission__statement" style={{paddingBottom: 20, width: '60%', paddingLeft: 20, paddingTop: 50}}>
+            <h1 style={{paddingTop: 20, fontWeight: 'bold', fontSize: '3rem'}}>Mission Statement</h1>
+            <p style={{textAlign: 'left', paddingLeft: 40, width: '110%'}}>At ASLingo, we are dedicated to breaking down communication barriers through the innovative use of artificial intelligence. Our mission is to empower individuals by providing accessible, engaging, and effective tools for learning American Sign Language. We believe that everyone deserves the opportunity to connect and communicate, and we strive to foster inclusivity and understanding in our diverse world.</p>
         </div>
-        <img src={`${process.env.PUBLIC_URL}/asl-homepage-image.jpeg`} style={{width: '50%', padding: 20, height: '80%', alignSelf: 'center'}} />
+        <img src={`${process.env.PUBLIC_URL}/asl-homepage-image.jpeg`} style={{width: '40%', padding: 20, height: '50%', alignSelf: 'center', transform: 'translateY(50px)'}} />
     </div>
     </div>
   );

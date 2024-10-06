@@ -5,6 +5,7 @@ import LoginPage from './LoginPage';
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import HomePage from './HomePage';
 import Leaderboard from './Leaderboard';
+import DailyChallenge from './DailyChallenge';
 
 function App() {
   return (
@@ -12,11 +13,11 @@ function App() {
       <Routes>
         <Route path="/" element={<StartPage />} /> 
         <Route path="/login" element={<LoginPage />} />  
-        <Route path="/home" element={<HomePage user="Abi" />} />
-        <Route path="/home/leaderboard" element={<Leaderboard currentUser="Abi" />} />
-        <Route path="/home/daily-challenge" element={<HomePage user="Abi" />} />
-        <Route path="/home/freestyle" element={<HomePage user="Abi" />} />
-        <Route path="/home/aslingo" element={<HomePage user="Abi" />} />
+        <Route path="/home" element={<HomePage />} />
+        <Route path="/home/leaderboard" element={<Leaderboard />} />
+        <Route path="/home/daily-challenge" element={<DailyChallenge />} />
+        <Route path="/home/freestyle" element={<HomePage />} />
+        <Route path="/home/aslingo" element={<HomePage />} />
       </Routes>
     </BrowserRouter>
   );

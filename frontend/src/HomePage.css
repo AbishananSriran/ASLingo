@@ -41,7 +41,7 @@
   }
   
   .welcome-message {
-    font-size: 64px;
+    font-size: 80px;
     height: 60vh;
     width: 100vw;
     text-align: center;
@@ -121,7 +121,7 @@
   z-index: 999;
 }
 
-.navbar__container {
+.navbar__container_h {
   display: flex;
   justify-content: space-around;
   height: 80px;
@@ -185,7 +185,7 @@ html {
   scroll-behavior: smooth;
 }
 
-.navbar__btn {
+.navbar__btn_h {
   display: flex;
   justify-content: center;
   align-items: center;

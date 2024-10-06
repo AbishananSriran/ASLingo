@@ -30,11 +30,11 @@ const Leaderboard = () => {
   const points = 1200;
 
   return (
-    <div>
+    <div style={{backgroundColor: '#873ee6', height: '100vh'}}>
         <nav class="navbar">
             <div class="navbar__container">
                 <div style={{display: 'flex', marginRight: 425}}>
-                <img src={`${process.env.PUBLIC_URL}/ASLingo-Logo.png`} className='navbar__logo__image' style={{height: '50%', alignSelf: 'center'}} />
+                <img src={`${process.env.PUBLIC_URL}/ASLingo-Logo.png`} className='navbar__logo__image' style={{height: '50%', alignSelf: 'center', marginRight: 10}} />
                 <a href="/home" id="navbar__logo">ASLingo</a>
                 </div>
                 <div class="navbar__toggle" id="mobile-menu">
@@ -47,7 +47,7 @@ const Leaderboard = () => {
                         <a href="/home" class="navbar__links">Back to Home</a>
                     </li>
                     <li class="navbar__item">
-                        <a className='navbar__links'>{`Points: ${points}`}</a>
+                        <a className='navbar__links'>{`Points: ${uc.points}`}</a>
                     </li>
                 </ul>
             </div>
