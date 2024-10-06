@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './App.css'; // Use your existing CSS file
 import './aslingo.css'
+import { UserContext } from './context';
+import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
   const gifList = [
@@ -14,6 +16,15 @@ const LoginPage = () => {
 
   const [currentGifIndex, setCurrentGifIndex] = useState(0);
   const [showSignUp, setShowSignUp] = useState(false);
+  const uc = useContext(UserContext);
+  const navigate = useNavigate();
+
+  const onLogin = () => {
+    var form = document.getElementById('form-name');
+    var data = new FormData(form);
+
+    navigate('/home')
+  }
 
   const toggleSignUp = () => {
     setShowSignUp(!showSignUp);
@@ -62,7 +73,7 @@ const LoginPage = () => {
           <form className="login-form">
             <input type="text" placeholder="Username" required />
             <input type="password" placeholder="Password" required />
-            <button type="submit" className="btn">Login</button>
+            <button type="submit" className="btn" onClick={onLogin}>Login</button>
 
             <p>Or log in with:</p>
             <div className="sso-buttons">
@@ -93,7 +104,12 @@ const SignUpModal = ({ toggleSignUp }) => {
           <input type="email" placeholder="Email" required />
           <input type="text" placeholder="Username" required />
           <input type="password" placeholder="Password" required />
-          <button type="submit" className="btn">Sign Up</button>
+          <button type="submit" className="btn" onClick={() => {
+            let form = document.getElementById('signup-form');
+            var data = new FormData();
+
+            console.log(data);
+          }}>Sign Up</button>
 
           <p>Or sign up with:</p>
           <div className="sso-buttons">

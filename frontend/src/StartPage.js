@@ -50,7 +50,7 @@ const StartPage = () => {
             </div>
         </div>
     </div>
-    <div style={{height: 500}} />
+    <div style={{height: 20}} />
     <div style={{display: 'flex', backgroundColor: 'black', height: '100vh'}}>
         <div id="mission-statement" className="mission__statement" style={{paddingBottom: 20, width: '50%', paddingLeft: 20, paddingTop: 50}}>
             <h1 style={{paddingTop: 20}}>Mission Statement</h1>

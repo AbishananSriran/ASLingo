@@ -67,6 +67,11 @@ function HomePage({ user }) {
                 <li class="navbar__item">
                     <a className='navbar__links'>{`Points: ${points}`}</a>
                 </li>
+                <li class="navbar__btn">
+                    <button onClick={() => {
+                      navigate('/');
+                    }} class="button"> Logout </button>
+                </li>
             </ul>
         </div>
     </nav>
