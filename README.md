@@ -1,3 +1,5 @@
+# ASLingo - AI Meets ASL: Learn to Sign, One Gesture at a Time
+
 ## Why ASLingo? 💡
 
 People have always dreamt of taking some time to learn a different language, including us! However, there are always two things that get in the way of language mastery: 
