@@ -37,5 +37,20 @@ async def _closeness(positions: typing.Annotated[bytes, fastapi.File()], positio
     positions2 = landmarks.normalize(positions2)
     return landmarks.closeness(positions, positions2)
 
+@app.post("/api/closest")
+async def _closest(image: typing.Annotated[bytes, fastapi.File()]):
+    bgr_data = cv2.imdecode(np.frombuffer(image, dtype="u1"), cv2.IMREAD_COLOR)
+    rgb_data = cv2.cvtColor(bgr_data, cv2.COLOR_BGR2RGB)
+    frame = mp.Image(image_format=mp.ImageFormat.SRGB, data=rgb_data)
+    result = landmarks.detector.detect(frame)
+    positions = [
+        [landmark.x, landmark.y, landmark.z]
+        for landmark in result.hand_world_landmarks[0]
+    ]
+    positions = landmarks.normalize(positions)
+    with open("stored.json", mode="r") as file:
+        stored = json.load(file)
+    return sorted(landmarks.closest(positions, stored), key=lambda r: r[0])
+
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8765)

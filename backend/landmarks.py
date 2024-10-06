@@ -1,6 +1,7 @@
 # https://github.com/google-ai-edge/mediapipe-samples/blob/main/examples/hand_landmarker/python/hand_landmarker.ipynb
 
 import math
+import typing
 
 from mediapipe import solutions
 from mediapipe.framework.formats import landmark_pb2
@@ -27,11 +28,15 @@ def draw_landmarks_on_image(rgb_image, detection_result):
         hand_landmarks_proto.landmark.extend([
             landmark_pb2.NormalizedLandmark(x=landmark.x, y=landmark.y, z=landmark.z) for landmark in hand_landmarks
         ])
+        minz = min(l.z for l in detection_result.hand_world_landmarks[idx])
         solutions.drawing_utils.draw_landmarks(
             annotated_image,
             hand_landmarks_proto,
             solutions.hands.HAND_CONNECTIONS,
-            solutions.drawing_styles.get_default_hand_landmarks_style(),
+            {i: solutions.drawing_utils.DrawingSpec(
+                color=(round(landmark.z*10000),)*3,
+                circle_radius=1+round(50*(landmark.z-minz)),
+            ) for i, landmark in enumerate(detection_result.hand_world_landmarks[idx])},
             solutions.drawing_styles.get_default_hand_connections_style())
 
         # Get the top left corner of the detected hand's bounding box.
@@ -92,6 +97,9 @@ def closeness(L1, L2):
         [5,8], [9,12], [13,16], [17,20],
         [4,8], [8,12], [12,16], [16,20],
         [4,6], [6,10], [10,14], [14,18],
+        [8,11],
+        [3,6],
+        [4,5], [4,8], [4,12], [4,14], [4,17],
     ]
     # return sum(
         # math.dist(l1, l2)
@@ -99,6 +107,7 @@ def closeness(L1, L2):
     # )
     L1s = sum(math.dist(L1[a], L1[b]) for a,b in cmp) / len(cmp)
     L2s = sum(math.dist(L2[a], L2[b]) for a,b in cmp) / len(cmp)
+    # L1s = L2s = 1
     X = [
         max(da/db, db/da) - 1
         for a,b in cmp
@@ -119,6 +128,18 @@ def closeness(L1, L2):
             ],
         },
     }
+
+def closest(
+    positions: list[list[float]],
+    stored: dict[str, list[tuple[list[list[float]], str]]],
+) -> list[tuple[float, str, str, typing.Any]]:
+    # stored is {name: [(positions, filename)]}
+    # return [(closeness, name, filename, _debug)]
+    return [
+        ((C := closeness(positions, stored_positions))["closeness"], name, filename, C["_debug"])
+        for name, store in stored.items()
+        for stored_positions, filename in store
+    ]
 
 if __name__ == "__main__":
     main()
