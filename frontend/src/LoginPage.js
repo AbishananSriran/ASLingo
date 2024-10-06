@@ -1,6 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react';
-import './App.css'; // Use your existing CSS file
-import './aslingo.css'
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import './App.css'; 
 import { UserContext } from './context';
 import { useNavigate } from 'react-router-dom';
 
@@ -18,12 +17,22 @@ const LoginPage = () => {
   const [showSignUp, setShowSignUp] = useState(false);
   const uc = useContext(UserContext);
   const navigate = useNavigate();
+  const formRef = useRef(null);
 
-  const onLogin = () => {
-    var form = document.getElementById('form-name');
-    var data = new FormData(form);
+  const onLogin = (e) => {
+      e.preventDefault();
 
-    navigate('/home')
+      if (formRef.current) {
+        var data = new FormData(formRef.current);
+
+        if (data && data.get('user') === uc.userName && data.get('pass') === 'hello123') {
+          navigate('/home');  
+        } else {
+          alert('Incorrect username or password! Try again')
+        }
+      } else {
+        alert("An internal error occured! Try again later");
+      }
   }
 
   const toggleSignUp = () => {
@@ -42,9 +51,9 @@ const LoginPage = () => {
   return (
     <div>
        <nav class="navbar">
-        <div class="navbar__container">
+          <div class="navbar__container_h">
             <div style={{display: 'flex'}}>
-              <img src={`${process.env.PUBLIC_URL}/ASLingo-Logo.png`} className='navbar__logo__image' style={{height: '50%', alignSelf: 'center'}} />
+              <img src={`${process.env.PUBLIC_URL}/ASLingo-Logo.png`} className='navbar__logo__image' style={{height: '50%', alignSelf: 'center', marginRight: 10}} />
               <a href="/" id="navbar__logo">ASLingo</a>
             </div>
             <div class="navbar__toggle" id="mobile-menu">
@@ -70,9 +79,9 @@ const LoginPage = () => {
         />
         <div className="login-form-2">
           <h2>Login</h2>
-          <form className="login-form">
-            <input type="text" placeholder="Username" required />
-            <input type="password" placeholder="Password" required />
+          <form className="login-form" id="login-form" ref={formRef}>
+            <input type="text" placeholder="Username" name='user' required />
+            <input type="password" placeholder="Password" name='pass' required />
             <button type="submit" className="btn" onClick={onLogin}>Login</button>
 
             <p>Or log in with:</p>
@@ -104,12 +113,7 @@ const SignUpModal = ({ toggleSignUp }) => {
           <input type="email" placeholder="Email" required />
           <input type="text" placeholder="Username" required />
           <input type="password" placeholder="Password" required />
-          <button type="submit" className="btn" onClick={() => {
-            let form = document.getElementById('signup-form');
-            var data = new FormData();
-
-            console.log(data);
-          }}>Sign Up</button>
+          <button type="submit" className="btn">Sign Up</button>
 
           <p>Or sign up with:</p>
           <div className="sso-buttons">

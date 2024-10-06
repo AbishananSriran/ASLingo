@@ -4,13 +4,28 @@ import json
 
 import uvicorn
 import fastapi
+from fastapi.middleware.cors import CORSMiddleware
 import mediapipe as mp
 import numpy as np
 import cv2
 
 import landmarks
 
+origins = [
+    "http://localhost",
+    "http://localhost:3000",
+    "http://localhost:8080",
+]
+
 app = fastapi.FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=['*'],
+    allow_headers=['*']
+)
 
 @app.post("/api/landmarks")
 async def _landmarks(image: typing.Annotated[bytes, fastapi.File()]):
