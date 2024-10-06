@@ -75,7 +75,13 @@ try:
                     break
                 if char == b"s"[0]:
                     name = input("name: ")
-                    filename = f'{name}{"" if name not in stored else len(stored[name])+1}.jpg'
+                    taken_names = {name for _, name in stored.get(name, [])}
+                    filename = f'{name}.jpg'
+                    if filename in taken_names:
+                        i = 1
+                        while filename in taken_names:
+                            i += 1
+                            filename = f'{name}{"-"*(name[-1:] in "-0123456789")}{i}.jpg'
                     cv2.imwrite(filename, bgr_data)
                     stored.setdefault(name, []).append((positions, filename))
                     with open("stored.json", mode="w") as file:
