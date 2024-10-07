@@ -21,7 +21,7 @@ function dataURItoBlob(dataURI) {
   return new Blob([ia], {type:mimeString});
 }
 
-function DailyChallenge() {
+function Freestyle() {
   const [feedback, setFeedback] = useState('Waiting for your sign...');
   const [isCameraEnabled, setIsCameraEnabled] = useState(false);
   const uc = useContext(UserContext);
@@ -30,6 +30,7 @@ function DailyChallenge() {
   const dailyObjective = "Daily Challenge: Sign 3 numbers";
   const [numbers, updateNumbers]  = useState([]);
   const [numMistakes, updateNumMistakes] = useState(0);
+  const [maybe, setMaybe] = useState(false);
   const [newSign, setNewSign] = useState('');
   const points = 100;
 
@@ -79,14 +80,14 @@ function DailyChallenge() {
         let name = result[0][1];
         let closeness = result[0][0];
         console.log(name, closeness, numbers);
-        if ([0,1,2,3,4,5,6,7,8,9].includes(+name) && closeness < 10) {
-          if (!numbers.includes(name)){
-            updateNumbers(p => p.includes(name) ? p : [...p, name]);
-            setNewSign(_ => name);
-            console.log(`we got em ${name}`)
-          }
+        if (closeness < 10) {
+          setNewSign(_ => name);
+          setMaybe(false);
         } else {
-          updateNumMistakes(mistakes => mistakes + 1);
+          if (response.ok){
+            setNewSign(_ => name);
+          }
+          setMaybe(true);
           console.log("not close or smth?")
         }
       } else {
@@ -146,22 +147,8 @@ function DailyChallenge() {
                   <video ref={videoRef} autoPlay playsInline style={{ width: '100%', height: 'auto', paddingTop: 20}}></video>
                   <canvas ref={canvasRef} style={{ display: 'none' }}></canvas>
               </div>
-                  <p class="mt-4 text-center text-gray-700 text-white text-bold text-xl mb-4">Sign directly into the camera! The camera will interpret your ASL.</p>
-              </div>
-
-              <div>
-                  <h1 style={{paddingTop: 30, paddingBottom: 30, fontSize: 100, textAlign: 'center', color: 'white', fontSize: '48px', fontWeight: 'bold'}}>{dailyObjective}</h1>
-                  <hr style={{backgroundColor: 'white'}} />
-                  <div class="w-full md:w-1/2 bg-white p-6 rounded-lg shadow-lg" style={{width: '100%', marginTop: 30}}>
-                  <h3 class="text-4xl font-bold mb-4 text-purple-600">Challenge Stats</h3>
-                      <ul class="space-y-2">
-                          <li class="text-gray-800">{`${numbers.length}/3 Numbers Signed`}</li>
-                          <li class="text-gray-800">{`Numbers that were successfully signed: ${numbers ? numbers.join(", ") : ''}`} </li>
-                          <li class="text-gray-800">{`${numMistakes} Mistakes So Far`}</li>
-                          <li class="text-gray-800">{`Solving this problem gets you ${points} points!`}</li>
-                      </ul>
-                  </div>
-                  {newSign && <h1 style={{paddingTop: 30, paddingBottom: 30, fontSize: 100, textAlign: 'center', color: '#54c922', fontSize: '48px', fontWeight: 'bold'}}>{`You signed the number ${newSign}!`}</h1>}
+              <p class="mt-4 text-center text-gray-700 text-white text-bold text-xl pb-4">Sign directly into the camera! The camera will interpret your ASL.</p>
+              {newSign && <p style={{paddingTop: 30, paddingBottom: 30, fontSize: 100, textAlign: 'center', width:'100vw', color: '#54c922', fontSize: '48px', fontWeight: 'bold'}}>{maybe ? (newSign ? `Unclear sign. Did you mean to sign "${newSign}"?` : `Unclear sign.`) : `You signed "${newSign}"!`}</p>}
               </div>
           </div>
         ) : (
@@ -181,4 +168,4 @@ function DailyChallenge() {
   );
 }
 
-export default DailyChallenge;
+export default Freestyle;

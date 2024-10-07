@@ -6,6 +6,7 @@ import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import HomePage from './HomePage';
 import Leaderboard from './Leaderboard';
 import DailyChallenge from './DailyChallenge';
+import Freestyle from './Freestyle';
 
 function App() {
   return (
@@ -16,7 +17,7 @@ function App() {
         <Route path="/home" element={<HomePage />} />
         <Route path="/home/leaderboard" element={<Leaderboard />} />
         <Route path="/home/daily-challenge" element={<DailyChallenge />} />
-        <Route path="/home/freestyle" element={<HomePage />} />
+        <Route path="/home/freestyle" element={<Freestyle />} />
         <Route path="/home/aslingo" element={<HomePage />} />
       </Routes>
     </BrowserRouter>

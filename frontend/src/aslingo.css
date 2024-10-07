@@ -365,8 +365,6 @@ html {
 
 
 .success__content {
-    position: absolute;
-    top: 20%;
     text-align: center;
     padding: 8rem 100px 12rem;
 }
