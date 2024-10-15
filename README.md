@@ -8,7 +8,7 @@ a) People don't develop any structured plan to learn the language.
 
 b) People value their time, and there are a few incentives to learn a different language.
 
-In fact, we also had these issues whenever we tried to learn a new language, so we wanted to brainstorm a solution for that. We realized that ASL is among the fastest growing languages that people are learning right now. 
+In fact, we also had these issues whenever we tried to learn a new language, so we wanted to brainstorm a solution for that. We realized that American Sign Language (ASL) is among the fastest growing languages that people are learning right now. 
 Considering that the World Health Organization estimates that there are almost 500 million people across the world who have a hearing disability, we thought it was increasingly important to develop an ASL platform that is effective,
 scalable, and enjoyable - ASLingo was born.
 
